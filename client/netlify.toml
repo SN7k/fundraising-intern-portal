@@ -1,0 +1,52 @@
+[build]
+  # Build command for React app
+  command = "npm run build"
+  # Directory to publish (relative to the root of your repo)
+  publish = "build"
+
+[build.environment]
+  # Node.js version
+  NODE_VERSION = "18"
+
+# Redirect rules for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache static assets
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache service worker
+[[headers]]
+  for = "/service-worker.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Environment variables (optional - can be set in Netlify dashboard)
+[context.production.environment]
+  REACT_APP_API_URL = "://fundraising-intern-portal.httpsonrender.com"
+
+[context.deploy-preview.environment]
+  REACT_APP_API_URL = "https://fundraising-intern-portal.onrender.com"
+
+# Build settings
+[build.processing]
+  skip_processing = false
+
+# Function settings (if you add serverless functions later)
+[functions]
+  directory = "functions"
+  node_bundler = "esbuild" 
