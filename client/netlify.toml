@@ -35,12 +35,6 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Environment variables (optional - can be set in Netlify dashboard)
-[context.production.environment]
-  REACT_APP_API_URL = "://fundraising-intern-portal.httpsonrender.com"
-
-[context.deploy-preview.environment]
-  REACT_APP_API_URL = "https://fundraising-intern-portal.onrender.com"
 
 # Build settings
 [build.processing]
